@@ -8,6 +8,7 @@ pluginManagement {
             }
         }
         mavenCentral()
+        maven ("https://maven.mservice.io/repository/maven-public/" )
         gradlePluginPortal()
     }
 }
@@ -16,6 +17,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven ("https://maven.mservice.io/repository/maven-public/" )
     }
 }
 

@@ -9,6 +9,7 @@ public class Product {
     private int imageResId;
     private boolean isAvailable;
     private int quantity;
+    private boolean isFavorite;
 
     public Product(){}
     public Product(String name,double price, int imageResId,int quantity) {
@@ -18,7 +19,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(String name, String category, String description, double price, int imageResId, boolean isAvailable,int quantity) {
+    public Product(String name, String category, String description, double price, int imageResId, boolean isAvailable,int quantity,boolean isFavorite) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -26,6 +27,7 @@ public class Product {
         this.imageResId = imageResId;
         this.isAvailable = isAvailable;
         this.quantity = quantity;
+        this.isFavorite=isFavorite;
     }
 
     // Getter methods
@@ -62,6 +64,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
 }

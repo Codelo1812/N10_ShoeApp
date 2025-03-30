@@ -36,6 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.format("$%.2f", product.getPrice()));
         holder.productImage.setImageResource(product.getImageResId());
+        holder.heartIcon.setImageResource(product.isFavorite() ? R.drawable.ic_heart_filled : R.drawable.ic_heart); // Cập nhật icon trái tim
     }
 
     // total number of rows
@@ -49,18 +50,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         ImageView productImage;
         TextView productName;
         TextView productPrice;
+        ImageView heartIcon; // Thêm biến cho icon trái tim
 
         ViewHolder(View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
+            heartIcon = itemView.findViewById(R.id.heart_icon); // Khởi tạo icon trái tim
             itemView.setOnClickListener(this);
+            heartIcon.setOnClickListener(this::onHeartIconClick); // Đăng ký sự kiện click cho icon trái tim
         }
 
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
+
+        private void onHeartIconClick(View view) {
+            int position = getAdapterPosition();
+            Product product = mData.get(position);
+            product.setFavorite(!product.isFavorite()); // Đảo ngược trạng thái yêu thích
+            notifyItemChanged(position);
         }
     }
 
@@ -74,10 +85,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
     // thêm phương thức cập nhật dữ liệu
     public void updateData(List<Product> newData) {
         this.mData = newData;

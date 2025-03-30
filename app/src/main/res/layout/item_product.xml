@@ -34,5 +34,14 @@
             android:layout_marginTop="4dp"
             android:textSize="14sp"
             android:textColor="@android:color/holo_red_dark" />
+        <!-- Icon trái tim -->
+        <ImageView
+            android:id="@+id/heart_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

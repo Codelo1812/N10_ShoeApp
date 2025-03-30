@@ -53,5 +53,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-database:20.0.5")
     implementation("com.google.firebase:firebase-auth:21.0.1")
-
+    implementation("com.mservice:momosdk:1.0.0")
+    implementation("vn.momo.sdk:momosdk:3.0.1")
 }

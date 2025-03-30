@@ -1,22 +1,23 @@
 package com.example.vhh;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class CartActivity extends AppCompatActivity {
     private Button checkoutButton;
     private DatabaseReference cartDatabase;
     private TextView cartDiscountedTotal;
+
+    private static final int PAYMENT_REQUEST_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,10 @@ public class CartActivity extends AppCompatActivity {
 
         loadCartData();
 
-        checkoutButton.setOnClickListener(v -> processCheckout());
+        checkoutButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+            startActivityForResult(intent, PAYMENT_REQUEST_CODE);
+        });
     }
 
     private void loadCartData() {
@@ -106,5 +112,13 @@ public class CartActivity extends AppCompatActivity {
         cartDatabase.removeValue();
         Toast.makeText(this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
         loadCartData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PAYMENT_REQUEST_CODE && resultCode == RESULT_OK) {
+            processCheckout();
+        }
     }
 }
